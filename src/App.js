@@ -1,7 +1,6 @@
 import React from "react";
-import "./App.css";
 
-function App() {
+function App({ list = [] }) {
   const [count, setCount] = React.useState(0);
 
   const increment = () => {
@@ -17,6 +16,9 @@ function App() {
       <p>{count}</p>
       <button onClick={increment}>Increment</button>
       <button onClick={decrement}>Decrement</button>
+      {list?.map((x) => (
+        <img key={x.id} src={x.image} alt={x.title} width={50} />
+      ))}
     </>
   );
 }

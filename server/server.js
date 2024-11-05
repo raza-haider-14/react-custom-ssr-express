@@ -11,7 +11,9 @@ const PORT = 8000;
 
 const app = express();
 
-app.use("^/$", (req, res, next) => {
+app.use("^/$", async (req, res) => {
+  const response = await fetch("https://fakestoreapi.com/products");
+  const products = await response.json();
   fs.readFile(path.resolve("./build/index.html"), "utf-8", (err, data) => {
     if (err) {
       console.log(err);
@@ -20,7 +22,7 @@ app.use("^/$", (req, res, next) => {
     return res.send(
       data.replace(
         '<div id="root"></div>',
-        `<div id="root">${ReactDOMServer.renderToString(<App />)}</div>`
+        `<div id="root">${ReactDOMServer.renderToString(<App list={products} />)}</div>`
       )
     );
   });
