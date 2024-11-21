@@ -1,25 +1,14 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Products from "./pages/products";
+import ProductDetail from "./pages/product-detail";
 
-function App({ list = [] }) {
-  const [count, setCount] = React.useState(0);
-
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-  };
-
+function App({ data = null }) {
   return (
-    <>
-      <p>{count}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      {list?.map((x) => (
-        <img key={x.id} src={x.image} alt={x.title} width={50} />
-      ))}
-    </>
+    <Routes>
+      <Route index element={<Products data={data} />} />
+      <Route path="/product/:id" element={<ProductDetail data={data} />} />
+    </Routes>
   );
 }
 
